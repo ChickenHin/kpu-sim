@@ -14,14 +14,14 @@
 name: Benchmark Regression
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'src/**'
-      - 'include/**'
-      - 'tests/benchmarks/**'
-      - 'tools/benchmark/**'
-      - 'scripts/benchmark_regression.py'
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - 'src/**'
+  #     - 'include/**'
+  #     - 'tests/benchmarks/**'
+  #     - 'tools/benchmark/**'
+  #     - 'scripts/benchmark_regression.py'
   pull_request:
     branches: [main]
     paths:
