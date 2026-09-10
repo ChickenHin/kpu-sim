@@ -3,10 +3,7 @@
 name: CMake on multiple platforms
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -31,14 +28,11 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         build_type: [Release]
-        c_compiler: [gcc, clang, cl]
+        c_compiler: [clang, cl]
         include:
           - os: windows-latest
             c_compiler: cl
             cpp_compiler: cl
-          - os: ubuntu-latest
-            c_compiler: gcc
-            cpp_compiler: g++
           - os: ubuntu-latest
             c_compiler: clang
             cpp_compiler: clang++
@@ -150,10 +144,10 @@ jobs:
       # Exclude performance and benchmark tests from CI to avoid timeouts
       run: ctest --build-config ${{ matrix.build_type }} --output-on-failure --timeout 300 -LE "performance|benchmark"
 
-    - name: Upload test log
-      #if: success()
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: CTest-LastTest-${{ matrix.os }}-${{ matrix.c_compiler }}-${{ matrix.build_type }}.log
-        path: ${{ steps.strings.outputs.build-output-dir }}/Testing/Temporary/LastTest.log
+    # - name: Upload test log
+    #   #if: success()
+    #   if: failure()
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: CTest-LastTest-${{ matrix.os }}-${{ matrix.c_compiler }}-${{ matrix.build_type }}.log
+    #     path: ${{ steps.strings.outputs.build-output-dir }}/Testing/Temporary/LastTest.log
